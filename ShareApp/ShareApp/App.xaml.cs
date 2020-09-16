@@ -8,6 +8,7 @@ namespace ShareApp
 {
     public partial class App : Application
     {
+        static Page currentpage;
         public App()
         {
             InitializeComponent();
@@ -31,7 +32,18 @@ namespace ShareApp
 
         public static void LoadFromSendTo(Stream stream, string ext)
         {
-             // *** O Stream chegando aqui o resto é comigo
+            //Global.sendto = stream;
+            //Global.sendtotype = ext;
+            if (currentpage?.GetType() == typeof(MainPage))
+            {
+                MainPage mainpage1 = (MainPage)currentpage;
+                //mainpage1.TogglerToolbar(Global.CurrentUrl);
+            }
+            else
+            {
+                currentpage?.Navigation.PopModalAsync();
+            }
         }
+
     }
 }
