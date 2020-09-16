@@ -7,9 +7,13 @@
              x:Class="ShareApp.MainPage">
 
     <StackLayout>
+        <Button x:Name="Botao" Text="Carregar"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Pressed="Botao_Pressed" />
+
+        <Image x:Name="Imagem" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Red" />
+
         <Label Text="File List:" FontAttributes="Bold" FontSize="20" HorizontalOptions="CenterAndExpand" Margin="0,30,0,0" />
         <!-- Place new controls here -->
-        <ListView ItemsSource="{Binding ItemList}" Margin="10" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement" HasUnevenRows="True">
+        <ListView ItemsSource="{Binding ItemList}" Margin="10" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement" HasUnevenRows="True" IsVisible="false">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -24,5 +28,4 @@
             </ListView.ItemTemplate>
         </ListView>
     </StackLayout>
-
 </ContentPage>

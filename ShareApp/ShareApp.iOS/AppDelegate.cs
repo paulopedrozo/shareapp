@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Foundation;
 using Newtonsoft.Json;
@@ -21,16 +22,8 @@ namespace ShareApp.iOS
 
         public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
         {
-
-            // *** Recebe as imagens/PDF e repassa para o Xamarin Forms
-            var defs = new NSUserDefaults("group.com.shareapp.ios", NSUserDefaultsType.SuiteName);
-            var value = defs.ValueForKey(new NSString("ListaTeste"));
-
-            if (value!=null)
-            {
-                Datas.SharedItems = new List<string>();
-                Datas.SharedItems = (List<string>)JsonConvert.DeserializeObject(value.ToString(), typeof(List<string>));
-            }
+            //var fileIOS = new FileIOS();
+            //var tempPath = fileIOS.GetFilePath("Teste123.png");
 
             Stream stream = new MemoryStream();
             string ext = "pdf";

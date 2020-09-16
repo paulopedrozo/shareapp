@@ -32,6 +32,9 @@ namespace ShareApp
 
         public static void LoadFromSendTo(Stream stream, string ext)
         {
+            //var fileIOS = new FileIOS();
+            //var tempPath = fileIOS.GetFilePath("Teste123.png");
+            
             //Global.sendto = stream;
             //Global.sendtotype = ext;
             if (currentpage?.GetType() == typeof(MainPage))
@@ -44,6 +47,5 @@ namespace ShareApp
                 currentpage?.Navigation.PopModalAsync();
             }
         }
-
     }
 }
