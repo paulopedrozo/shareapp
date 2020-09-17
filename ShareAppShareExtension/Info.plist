@@ -20,6 +20,8 @@
 	<string>1.0</string>
 	<key>MinimumOSVersion</key>
 	<string>10.0</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>Applies filters to photos and updates the original image</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>

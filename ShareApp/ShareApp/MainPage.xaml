@@ -6,26 +6,25 @@
              mc:Ignorable="d"
              x:Class="ShareApp.MainPage">
 
-    <StackLayout>
-        <Button x:Name="Botao" Text="Carregar"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Pressed="Botao_Pressed" />
+    <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout>
+            <Button x:Name="Botao" Text="Carregar"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Pressed="Botao_Pressed" />
 
-        <Image x:Name="Imagem" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Red" />
-
-        <Label Text="File List:" FontAttributes="Bold" FontSize="20" HorizontalOptions="CenterAndExpand" Margin="0,30,0,0" />
-        <!-- Place new controls here -->
-        <ListView ItemsSource="{Binding ItemList}" Margin="10" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement" HasUnevenRows="True" IsVisible="false">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <ViewCell.View>
-                            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                                <Label Text="File:" FontAttributes="Bold" />
-                                <Label Text="{Binding .}" />
-                            </StackLayout>
-                        </ViewCell.View>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackLayout>
+            <Label Text="File List:" FontAttributes="Bold" FontSize="20" HorizontalOptions="CenterAndExpand" Margin="0,30,0,0" />
+            <!-- Place new controls here -->
+            <ListView ItemsSource="{Binding ItemList}" Margin="10" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement" HasUnevenRows="True" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                    <Image HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Red" Source="{Binding .}" WidthRequest="30" HeightRequest="30" />
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

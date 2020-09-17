@@ -14,10 +14,25 @@ namespace ShareApp.iOS
     {
         public string GetFilePath(string filename)
         {
-            var folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            return Path.Combine(folder, filename);
+            //            var folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //            return Path.Combine(folder, filename);
+            var fileManager = new NSFileManager();
+            var appGroupContainer = fileManager.GetContainerUrl("group.com.shareapp.ios");
+            var appGroupContainerPath = appGroupContainer.Path;
+
+            string directoryPath = Path.Combine(appGroupContainerPath, "DocPro");
+            return Path.Combine(directoryPath, filename);
         }
 
+        public string[] GetFilePaths()
+        {
+            var fileManager = new NSFileManager();
+            var appGroupContainer = fileManager.GetContainerUrl("group.com.shareapp.ios");
+            var appGroupContainerPath = appGroupContainer.Path;
+
+            string directoryPath = Path.Combine(appGroupContainerPath, "DocPro");
+            return Directory.GetFiles(directoryPath,"*.*");
+        }
         public bool Exists(string filename)
         {
             string filepath = GetFilePath(filename);

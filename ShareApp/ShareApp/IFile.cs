@@ -9,5 +9,6 @@ namespace ShareApp
         string GetFilePath(string filename);
         bool Exists(string filename);
         void WriteAllBytes(string fileName, byte[] conteudoArquivo);
+        string[] GetFilePaths();
     }
 }

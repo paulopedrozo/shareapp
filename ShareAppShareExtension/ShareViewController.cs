@@ -45,16 +45,21 @@ namespace ShareAppShareExtension
             if (ExtensionContext.InputItems != null)
             {
                 NSExtensionItem item = ExtensionContext.InputItems[0];
-                List<string> pathList = new List<string>();
 
                 if (item.Attachments != null && item.Attachments.Length > 0)
                 {
+                    var fileManager = new NSFileManager();
+                    var appGroupContainer = fileManager.GetContainerUrl("group.com.shareapp.ios");
+                    var appGroupContainerPath = appGroupContainer.Path;
+                    string directoryPath = Path.Combine(appGroupContainerPath, "DocPro");
+                    Directory.Delete(directoryPath, true);
+                    fileManager.CreateDirectory(directoryPath, true, null);
+                    int count = 0;
+
                     foreach (NSItemProvider itemProvider in item.Attachments)
                     {
                         if (itemProvider.HasItemConformingTo(UTType.Image))
                         {
-                            //var alert2 = UIAlertController.Create("Entrou", "Detalhes " + itemProvider.Description + " | Tipo imagem: " + itemProvider.HasItemConformingTo(UTType.Image).ToString() + " | Tipo public: " + itemProvider.HasItemConformingTo("public.image").ToString(), UIAlertControllerStyle.Alert);
-
                             string tempPath = string.Empty;
 
                             try
@@ -79,16 +84,30 @@ namespace ShareAppShareExtension
                                     {
                                         NSUrl nsurl = (NSUrl)itemObject;
                                         var nsdata = NSData.FromUrl(nsurl);
-                                        var Data = UIImage.LoadFromData(nsdata);
-                                        using (imgData = (Data).AsPNG())
+                                        if (nsdata != null)
                                         {
-                                            byte[] myByteArray = new byte[imgData.Length];
-                                            Marshal.Copy(imgData.Bytes, myByteArray, 0, Convert.ToInt32(imgData.Length));
+                                            var data = UIImage.LoadFromData(nsdata);
 
-                                            var fileIOS = new FileIOS();
-                                            fileIOS.WriteAllBytes("Teste123.png", myByteArray);
+                                            string pngFilename = Path.Combine(directoryPath, $"Img{count}.png");
+                                            count++;
+
+                                            using (imgData = data.AsPNG())
+                                            {
+                                                //NSError err = null;
+                                                //bool isSaved = imgData.Save(pngFilename, false, out err);
+                                                bool isFileCreated = fileManager.CreateFile(pngFilename, imgData, (NSDictionary)null);
+                                            }
                                         }
+                                        //using (imgData = (Data).AsPNG())
+                                        //{
+                                        //    byte[] myByteArray = new byte[imgData.Length];
+                                        //    Marshal.Copy(imgData.Bytes, myByteArray, 0, Convert.ToInt32(imgData.Length));
+
+                                        //    var fileIOS = new FileIOS();
+                                        //    fileIOS.WriteAllBytes("Teste123.png", myByteArray);
+                                        //}
                                     }
+
                                 });
 
                                 //var alert2 = UIAlertController.Create("Funfou", tempPath, UIAlertControllerStyle.Alert);
@@ -101,8 +120,6 @@ namespace ShareAppShareExtension
                                 //});
 
                                 UIApplication.SharedApplication.OpenUrl(new NSUrl("com.shareapp.test://"));
-
-                                ExtensionContext.CompleteRequest(new NSExtensionItem[0], null);
                             }
                             catch (Exception)
                             {
@@ -110,6 +127,8 @@ namespace ShareAppShareExtension
                         }
                     }
                 }
+
+                ExtensionContext.CompleteRequest(ExtensionContext.InputItems, null);
             }
         }
         public override void PresentationAnimationDidFinish()
